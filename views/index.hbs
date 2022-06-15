@@ -1,0 +1,19 @@
+<div class="title">
+    <div class="content">
+        {{#if name}}
+            <h2>Thank you for signing up with {{email}}. Welcome {{name}} to KCC Institude Of Technology 
+                And Managment. 
+            </h2>
+        {{else}}
+            <h1>Welcome to {{title}}</h1>
+            <h2>Sign Up Form</h2>
+            <form action="/signup" method="post">
+                <div class="email">
+                    <input type="text" name="nameInput" id="" placeholder="Enter your name"><br><br>
+                    <input type="email" name="emailInput" id="" placeholder="Email Address"><br><br>
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+        {{/if}}
+    </div>
+</div>
