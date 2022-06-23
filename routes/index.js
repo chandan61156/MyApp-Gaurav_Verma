@@ -37,6 +37,14 @@ router.all('/mul', function (req, res, next) {
   console.log(result);
   res.json(result);
 })
+router.all('/div', function (req, res, next) {
+  console.log(req.body);
+  var num1 = parseFloat(req.body.a);
+  var num2 = parseFloat(req.body.b);
+  var result = num1 / num2;
+  console.log(result);
+  res.json(result);
+})
 
 router.post('/signup', (req, res) => {
   var em = req.body.emailInput;
