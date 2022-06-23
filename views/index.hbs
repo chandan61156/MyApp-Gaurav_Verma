@@ -1,4 +1,4 @@
-<div class="title">
+{{!-- <div class="title">
     <div class="content">
         {{#if name}}
             <h2>Thank you for signing up with {{email}}. Welcome {{name}} to KCC Institude Of Technology 
@@ -16,4 +16,190 @@
             </form>
         {{/if}}
     </div>
-</div>
+</div> --}}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KCC Calculator</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body>
+
+    <style>
+        .container {
+            height: 100vh;
+            width: 100%;
+        }
+        .calc_title {
+            text-align: center;
+            padding: 20px;
+            margin-bottom: 10px;
+        }
+        .calc_title span {
+            border: 2px solid blue;
+            padding: 5px 15px;
+            font-size: 20px;
+            font-weight: 700;
+        }
+        .calc_body {
+            text-align: center;
+        }
+        .calc_body label {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        input {
+            padding: 5px;
+            border: 2px solid green;
+        }
+        button {
+            margin-right: 5px;
+            background-color: blue;
+            padding: 6px 10px;
+            font-family: inherit;
+            font-size: 16px;
+            color: white;
+            border: 2px solid green;
+            cursor: pointer;
+        }
+        .answer {
+            margin-top: 22px;
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+        .history {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 25px;
+        }
+        caption {
+            font-size: 20px;
+            letter-spacing: .5px;
+            font-weight: 600;
+        }
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            text-align: centre;
+            font-size: 22px;
+            padding: 8px;
+        }
+    </style>
+
+    <div class="container">
+        <div class="calc">
+            <div class="calc_title"><span>My Calculator</span></div>
+            <form>
+                <div class="calc_body">
+                    <label for="num1">Num 1: </label> <input type="number" class="num1" id="num1"
+                        name="num1"><br><br>
+                    <label for="num2">Num 2: </label> <input type="number" class="num2" id="num2"
+                        name="num2"><br><br>
+                    <button class="add" id="add">ADD</button>
+                    <button class="sub" id="sub">SUB</button>
+                    <button class="mul" id="mul">MULT</button>
+                    <button class="div" id="div">DIV</button>
+                    <br><br>
+
+                    <div class="answer">Result : </div>
+
+                </div>
+            </form>
+
+            <div class="history">
+                <table>
+                    <caption>HISTORY</caption>
+                    <tr>
+                        <th>Num 1</th>
+                        <th>Num 2</th>
+                        <th>Operation</th>
+                        <th>Result</th>
+                        <th>Operator</th>
+                        <th>Submit</th>
+                    </tr>
+
+                    <tr>
+                        <td class="n1"></td>
+                        <td class="n2"></td>
+                        <td class="op"></td>
+                        <td class="res"></td>
+                        <td class="sop"></td>
+                        <td class="btn"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(() => {
+            $("#add").click(function (event) {
+                event.preventDefault();
+                var x = $(".num1").val();
+                var y = $(".num2").val();
+                var r = $('<input type="button" value="Submit"/>');
+                var s = $('<select><option value="+">+</option><option value="-">-</option><option value="*">*</option></select>')
+                $.post({ url: "/add", data: { a: x, b: y } }).then((data) => {
+                    console.log(data);
+                    if (x == "" || y == "") {
+                        alert("Enter num1 and num2");
+                    }
+                    else {
+                        $(".n1").append('<p>' + x + '</p>');
+                        $(".n2").append('<p>' + y + '</p>');
+                        $(".op").append('<p> + <p>');
+                        $(".res").append('<p>' + data + '</p>');
+                        $(".btn").append(r);
+                        $(".sop").append(s);
+                    }
+                });
+            });
+        });
+        $("#sub").click(function (event) {
+            event.preventDefault();
+            var x = $(".num1").val();
+            var y = $(".num2").val();
+            $.post({ url: "/sub", data: { a: x, b: y } }).then((data) => {
+                console.log(data);
+                if (x == "" || y == "") {
+                    alert("Enter num1 and num2");
+                }
+                else {
+                    $(".n1").append('<p>' + x + '</p>');
+                    $(".n2").append('<p>' + y + '</p>');
+                    $(".op").append('<p> - <p>');
+                    $(".res").append('<p>' + data + '</p>');
+                }
+            });
+        });
+        $("#mul").click(function (event) {
+            event.preventDefault();
+            var x = $(".num1").val();
+            var y = $(".num2").val();
+            $.post({ url: "/mul", data: { a: x, b: y } }).then((data) => {
+                console.log(data);
+                if (x == "" || y == "") {
+                    alert("Enter num1 and num2");
+                }
+                else {
+                    $(".n1").append('<p>' + x + '</p>');
+                    $(".n2").append('<p>' + y + '</p>');
+                    $(".op").append('<p> * <p>');
+                    $(".res").append('<p>' + data + '</p>');
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
